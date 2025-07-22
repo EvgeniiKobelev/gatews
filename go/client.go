@@ -59,7 +59,7 @@ type ConfOptions struct {
 	PingInterval     string
 }
 
-func NewWsService(ctx context.Context, logger *log.Logger, conf *ConnConf) (*WsService, error) {
+func NewWsService(ctx context.Context, logger *log.Logger, conf *ConnConf, customDialer *websocket.Dialer) (*WsService, error) {
 	if logger == nil {
 		logger = log.New(os.Stdout, "", log.LstdFlags|log.Lshortfile)
 	}
@@ -78,7 +78,7 @@ func NewWsService(ctx context.Context, logger *log.Logger, conf *ConnConf) (*WsS
 	retry := 0
 	var conn *websocket.Conn
 	for !stop {
-		dialer := websocket.DefaultDialer
+		dialer := customDialer
 		if conf.SkipTlsVerify {
 			dialer.TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
 		}
