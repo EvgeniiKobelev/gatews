@@ -1,4 +1,4 @@
-module github.com/gateio/gatews/go
+module github.com/EvgeniiKobelev/gatews/go
 
 go 1.18
 
